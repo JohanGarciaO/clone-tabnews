@@ -57,3 +57,23 @@ export class MethodNotAllowedError extends Error {
     };
   }
 }
+
+export class MigrationServiceError extends Error {
+  constructor({ cause, message }) {
+    super(message || "Serviço de Migrations indisponível", {
+      cause,
+    });
+    (this.name = "MigrationServiceError"),
+      (this.action = "Verifique se o serviço de Migrations está disponível.");
+    this.statusCode = 503;
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      action: this.action,
+      stattus_code: this.statusCode,
+    };
+  }
+}
